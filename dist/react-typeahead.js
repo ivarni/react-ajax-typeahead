@@ -1,17 +1,23 @@
 var TypeAheadSelect = React.createClass({displayName: "TypeAheadSelect",
     getInitialState: function() {
-        var options = [
-            { text: 'One', value: 1 },
-            { text: 'Two', value: 2 },
-            { text: 'Three', value: 3 },
-            { text: 'Four', value: 4 },
-            { text: 'Five', value: 5 },
-        ];
         return {
-            options: options,
+            options: [],
             showing: [],
             position: -1
         };
+    },
+    doRequest: function(searchStr, cb) {
+        var xhr = new XMLHttpRequest();
+        xhr.onload = function() {
+            if (this.status === 200) {
+                cb(JSON.parse(this.response));
+            } else {
+                //TODO errorhandling
+                throw new Error(this.response);
+            }
+        };
+        xhr.open('GET', this.props.url + searchStr);
+        xhr.send();
     },
     handleInput: function(e) {
         if (e.key === 'ArrowDown') {
@@ -21,20 +27,27 @@ var TypeAheadSelect = React.createClass({displayName: "TypeAheadSelect",
         } else if (e.key === 'Enter') {
             this.selectHighlighted();
         } else {
-            this.setState({
-                showing: this.getOptions(e.target.value)
-            });
+            this.updateOptions(e.target.value)
         }
     },
     selectHighlighted: function() {
-            var selectedOption = this.state.showing[this.state.position];
-            if (selectedOption) {
-                this.selectOption(selectedOption);
-            }
+        var selectedOption = this.state.showing[this.state.position];
+        if (selectedOption) {
+            this.selectOption(selectedOption);
+        }
     },
-    getOptions: function(value) {
-        if (value === '') return [];
-        return this.state.options.filter(function(c) { return c.text.toLowerCase().indexOf(value.toLowerCase()) !== -1 });
+    updateOptions: function(value) {
+        if (value === '') {
+            return this.setOptions([]);
+        }
+        this.doRequest(value, function(result) {
+            this.setOptions(result);
+        }.bind(this));
+    },
+    setOptions: function(options) {
+        this.setState({
+            showing: options
+        });
     },
     selectOption: function(option) {
         React.findDOMNode(this.refs.input).value = option.text;
@@ -82,6 +95,6 @@ var TypeAheadOption = React.createClass({displayName: "TypeAheadOption",
 });
 
 React.render(
-    React.createElement(TypeAheadSelect, null),
+    React.createElement(TypeAheadSelect, {url: "/data?search="}),
     document.getElementById('demo')
 );
