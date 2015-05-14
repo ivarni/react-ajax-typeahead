@@ -54,7 +54,8 @@ var TypeAheadSelect = React.createClass({displayName: "TypeAheadSelect",
     },
     setOptions: function(options) {
         this.setState({
-            showing: options
+            showing: options,
+            position: options.length === 0 ? -1 : this.state.position
         });
     },
     selectOption: function(option) {
