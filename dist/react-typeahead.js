@@ -78,7 +78,7 @@ var TypeAheadSelect = React.createClass({displayName: "TypeAheadSelect",
         }.bind(this))
         return (
             React.createElement("div", null, 
-                React.createElement("input", {type: "text", onKeyUp: this.handleInput, ref: "input", onBlur: this.selectHighlighted}), 
+                React.createElement("input", {type: "text", name: this.props.name, onKeyUp: this.handleInput, ref: "input", onBlur: this.selectHighlighted}), 
                 React.createElement("ul", {onKeyDown: this.handleInput}, 
                     options
                 )

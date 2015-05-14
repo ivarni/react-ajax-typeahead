@@ -78,7 +78,7 @@ var TypeAheadSelect = React.createClass({
         }.bind(this))
         return (
             <div>
-                <input type="text" onKeyUp={this.handleInput} ref="input" onBlur={this.selectHighlighted} />
+                <input type="text" name={this.props.name} onKeyUp={this.handleInput} ref="input" onBlur={this.selectHighlighted} />
                 <ul onKeyDown={this.handleInput}>
                     {options}
                 </ul>

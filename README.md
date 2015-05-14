@@ -14,7 +14,9 @@ Work in progress.
 ### Basic
 
     React.render(
-        <TypeAheadSelect url="/data?search="/>,
+        <TypeAheadSelect
+            name="inputName"
+            url="/data?search="/>,
         document.getElementById('demo')
     );
 
@@ -26,6 +28,7 @@ Work in progress.
 
     React.render(
         <TypeAheadSelect
+            name="inputName"
             url="/data?search="
             filter={rawMatcher} />,
         document.getElementById('demo')
@@ -39,6 +42,7 @@ Work in progress.
 
     React.render(
         <TypeAheadSelect
+            name="inputName"
             xhr={xhr} />,
         document.getElementById('demo')
     );
