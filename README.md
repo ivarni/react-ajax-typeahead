@@ -18,6 +18,19 @@ Work in progress.
         document.getElementById('demo')
     );
 
+### BYO filter-function
+
+    function rawMatcher(raw, searchStr) {
+        return raw.filter(function (c) { return c.text !== 'One' });
+    }
+
+    React.render(
+        <TypeAheadSelect
+            url="/data?search="
+            filter={rawMatcher} />,
+        document.getElementById('demo')
+    );
+
 ## License
 
 ISC

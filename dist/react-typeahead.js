@@ -41,6 +41,9 @@ var TypeAheadSelect = React.createClass({displayName: "TypeAheadSelect",
             return this.setOptions([]);
         }
         this.doRequest(value, function(result) {
+            if (this.props.filter) {
+                result = this.props.filter(result, value);
+            }
             this.setOptions(result);
         }.bind(this));
     },
@@ -52,7 +55,6 @@ var TypeAheadSelect = React.createClass({displayName: "TypeAheadSelect",
     selectOption: function(option) {
         React.findDOMNode(this.refs.input).value = option.text;
         this.setState({ showing: [], position: -1 });
-        console.log(option.value);
     },
     move: function(dPosition) {
         var newPosition = Math.min(this.state.showing.length, Math.max(this.state.position + dPosition, 0));
@@ -94,7 +96,13 @@ var TypeAheadOption = React.createClass({displayName: "TypeAheadOption",
     }
 });
 
+function rawMatcher(raw, searchStr) {
+    return raw.filter(function (c) { return c.text !== 'One' });
+}
+
 React.render(
-    React.createElement(TypeAheadSelect, {url: "/data?search="}),
+    React.createElement(TypeAheadSelect, {
+        url: "/data?search=", 
+        filter: rawMatcher}),
     document.getElementById('demo')
 );
