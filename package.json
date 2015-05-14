@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Typeahead with React",
   "dependencies": {
+    "express": "^4.12.3",
     "react": "^0.13.3"
   },
   "devDependencies": {},
