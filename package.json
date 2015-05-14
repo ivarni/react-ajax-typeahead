@@ -1,0 +1,11 @@
+{
+  "name": "react-typeahead",
+  "version": "1.0.0",
+  "description": "Typeahead with React",
+  "dependencies": {
+    "react": "^0.13.3"
+  },
+  "devDependencies": {},
+  "author": "Ivar Nilsen",
+  "license": "ISC"
+}
