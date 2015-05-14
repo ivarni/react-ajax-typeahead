@@ -31,6 +31,18 @@ Work in progress.
         document.getElementById('demo')
     );
 
+### BYO AJAX
+
+    function xhr(searchStr, cb) {
+        cb([{ text: 'asda', value: 1 }]);
+    }
+
+    React.render(
+        <TypeAheadSelect
+            xhr={xhr} />,
+        document.getElementById('demo')
+    );
+
 ## License
 
 ISC

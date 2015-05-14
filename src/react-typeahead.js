@@ -6,6 +6,11 @@ var TypeAheadSelect = React.createClass({
             position: -1
         };
     },
+    componentDidMount: function() {
+        if (this.props.xhr) {
+            this.doRequest = this.props.xhr;
+        }
+    },
     doRequest: function(searchStr, cb) {
         var xhr = new XMLHttpRequest();
         xhr.onload = function() {
@@ -100,9 +105,25 @@ function rawMatcher(raw, searchStr) {
     return raw.filter(function (c) { return c.text !== 'One' });
 }
 
+function xhr(searchStr, cb) {
+    cb([{ text: 'asda', value: 1 }]);
+}
+
+React.render(
+    <TypeAheadSelect
+        url="/data?search=" />,
+    document.getElementById('demo')
+);
+
 React.render(
     <TypeAheadSelect
         url="/data?search="
         filter={rawMatcher} />,
-    document.getElementById('demo')
+    document.getElementById('demo-filter')
+);
+
+React.render(
+    <TypeAheadSelect
+        xhr={xhr} />,
+    document.getElementById('demo-xhr')
 );
