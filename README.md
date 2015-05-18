@@ -6,8 +6,10 @@ Work in progress.
 
 ## Develop
 
+* npm install
 * npm install -g react-tools
 * jsx --watch src/ dist/
+* http://localhost:3000/
 
 ## Usage
 
